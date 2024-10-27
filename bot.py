@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
 import discord
-from discord import app_commands
 from discord.ext import commands
 import server
 
@@ -21,6 +20,27 @@ async def nombre(interaction: discord.Interaction):
 
     # Responde al usuario con su nombre
     await interaction.response.send_message(f"Tu nombre es {nombre}")
+
+
+@bot.tree.command(name="clear", description="Borra un número especificado de mensajes del canal.")
+async def clear(interaction: discord.Interaction, amount: int):
+    # Verifica si el comando fue ejecutado en un canal de texto
+    if not isinstance(interaction.channel, discord.TextChannel):
+        await interaction.response.send_message("Este comando solo se puede usar en servidores.", ephemeral=True)
+        return
+
+    # Verifica que el usuario que ejecuta el comando tenga permisos de administrador
+    if not interaction.user.guild_permissions.manage_messages:
+        await interaction.response.send_message("No tienes permisos para borrar mensajes.", ephemeral=True)
+        return
+
+    # Limita el número de mensajes a borrar
+    amount = min(amount, 5)  # Discord limita a borrar hasta 100 mensajes a la vez
+
+    # Borra los mensajes
+    deleted = await interaction.channel.purge(limit=amount)
+    await interaction.response.send_message(f"{len(deleted)} mensajes borrados.", ephemeral=True)
+
 
 async def register_commands():
     await bot.tree.sync()

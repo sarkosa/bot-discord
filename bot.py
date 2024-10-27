@@ -1,0 +1,3 @@
+nombre = "xd"
+
+print (nombre)

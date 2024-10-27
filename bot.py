@@ -55,7 +55,7 @@ async def on_message(message):
         return
 
     # Verifica si el mensaje es de un usuario específico y contiene un GIF
-    if message.author.id == elpiedra and message.type == discord.MessageType.gif:
+    if message.author.id == 272731922717736971 and message.type == discord.MessageType.gif:
         # Incrementa el contador
         contador_mensajes += 1
         # Envía el mensaje predeterminado junto con el contador

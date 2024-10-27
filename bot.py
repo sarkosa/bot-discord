@@ -35,7 +35,7 @@ async def clear(interaction: discord.Interaction, amount: int):
         return
 
     # Limita el número de mensajes a borrar
-    amount = min(amount, 5)  # Discord limita a borrar hasta 100 mensajes a la vez
+    amount = min(amount, 20)  # Discord limita a borrar hasta 100 mensajes a la vez
 
     # Envía una respuesta rápida para evitar el error de "Unknown interaction"
     await interaction.response.send_message(f"Intentando borrar {amount} mensajes...", ephemeral=True)

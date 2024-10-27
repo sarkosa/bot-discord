@@ -45,6 +45,24 @@ async def clear(interaction: discord.Interaction, amount: int):
      # Envía un mensaje confirmando cuántos mensajes fueron borrados
     await interaction.followup.send(f"{len(deleted)} mensajes borrados.", ephemeral=True)
 
+# Evento que se activa cuando se envía un mensaje
+@bot.event
+async def on_message(message):
+    global contador_mensajes  # Usa la variable global para el contador
+
+    # Evita que el bot responda a sí mismo
+    if message.author == bot.user:
+        return
+
+    # Verifica si el mensaje es de un usuario específico y contiene un GIF
+    if message.author.id == elpiedra and message.type == discord.MessageType.gif:
+        # Incrementa el contador
+        contador_mensajes += 1
+        # Envía el mensaje predeterminado junto con el contador
+        await message.channel.send(f":O ¡ @elpiedra se vino {contador_mensajes} veces!!!")
+
+    # Permite que otros comandos y eventos funcionen
+    await bot.process_commands(message)
 
 async def register_commands():
     await bot.tree.sync()

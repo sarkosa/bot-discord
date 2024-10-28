@@ -66,6 +66,12 @@ async def on_message(message):
     # Permite que otros comandos y eventos funcionen
     await bot.process_commands(message)
 
+@bot.event
+async def on_message(message):
+    print(f"Mensaje recibido de {message.author}: {message.content}")  # Imprime en consola
+    await bot.process_commands(message)  # Procesa otros comandos
+
+
 async def register_commands():
     await bot.tree.sync()
 

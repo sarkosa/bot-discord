@@ -56,15 +56,16 @@ async def on_message(message):
     if message.author == bot.user:
         return
 
-    # Verifica si el mensaje es de un usuario específico y contiene un GIF
-    if message.author.id == 272731922717736971 and message.type == discord.MessageType.gif:
+    # Verifica si el mensaje es de un usuario específico y contiene un enlace de Tenor
+    if message.author.id == 272731922717736971 and message.content.startswith("https://tenor.com/"):
         # Incrementa el contador
         contador_mensajes += 1
         # Envía el mensaje predeterminado junto con el contador
-        await message.channel.send(f":O ¡ @elpiedra se tocó {contador_mensajes} veces el pilín!!!")
+        await message.channel.send(f":O ¡ @elpiedra se tocó el pilín {contador_mensajes} veces!")
 
     # Permite que otros comandos y eventos funcionen
     await bot.process_commands(message)
+
 
 
 async def register_commands():

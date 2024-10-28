@@ -61,7 +61,7 @@ async def on_message(message):
         # Incrementa el contador
         contador_mensajes += 1
         # Envía el mensaje predeterminado junto con el contador
-        await message.channel.send(f":O ¡ @elpiedra se vino {contador_mensajes} veces!!!")
+        await message.channel.send(f":O ¡ @elpiedra se tocó {contador_mensajes} veces el pilín!!!")
 
     # Permite que otros comandos y eventos funcionen
     await bot.process_commands(message)

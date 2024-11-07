@@ -34,7 +34,7 @@ def download_audio():
 @bot.event
 async def on_ready():
     download_audio()  # Descargar el archivo de audio desde GitHub
-    random_sound_task.start()  # Inicia la tarea para reproducir sonido cada hora
+    random_sound_task.start()  # Inicia la tarea para reproducir sonido cada 30 minutos
     await bot.tree.sync()
     print(f'Bot conectado como {bot.user}')
 
@@ -101,10 +101,11 @@ async def on_message(message):
     if message.author == bot.user:
         return
     
-    # Verifica si el mensaje es "bz" en el canal de texto específico
-    if message.content.lower() == "bz" and message.channel.id == 877810069239136268:
-        # Intenta unirse al canal de voz y reproducir el sonido
+    # Verifica si el mensaje contiene "bz" y si el mensaje es en el canal específico
+    if "bz" in message.content.lower() and message.channel.id == 877810069239136268:
+    # Intenta unirse al canal de voz y reproducir el sonido
         await play_sound_in_specific_voice_channel()
+
 
     if message.author.id == 272731922717736971 and message.content.startswith("https://tenor.com/"):
         contador_mensajes += 1

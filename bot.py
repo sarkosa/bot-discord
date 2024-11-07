@@ -22,7 +22,7 @@ VOICE_CHANNEL_ID = 877819520792813579
 
 # Define una variable global para el contador de mensajes y el volumen
 contador_mensajes = 4
-volume = 3.0  # Valor inicial del volumen (0.5 = 50%)
+volume = 7.0  # Valor inicial del volumen (0.5 = 50%)
 
 # Función para descargar el archivo de audio desde GitHub
 def download_audio():
@@ -71,7 +71,7 @@ async def play_sound_in_specific_voice_channel():
             break
 
 # Tarea que ejecuta el sonido cada 30 minutos
-@tasks.loop(minutes=3)
+@tasks.loop(minutes=30)
 async def random_sound_task():
     await play_sound_in_specific_voice_channel()
 

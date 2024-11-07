@@ -55,19 +55,23 @@ async def play_sound_in_specific_voice_channel():
         voice_channel = guild.get_channel(VOICE_CHANNEL_ID)
 
         if voice_channel:
+            # Si el bot ya está conectado a un canal de voz, desconéctalo primero
+            if voice_channel.guild.voice_client:
+                await voice_channel.guild.voice_client.disconnect()
+
+            # Conectarse y reproducir el audio
             vc = await voice_channel.connect()
-            # Agrega el filtro de volumen en FFmpeg
             source = discord.FFmpegPCMAudio("sonido.mp3", options=f"-filter:a 'volume={volume}'")
             vc.play(source)
-            
+
             while vc.is_playing():
                 await asyncio.sleep(1)
-            
+
             await vc.disconnect()
             break
 
-# Tarea que ejecuta el sonido una vez por hora
-@tasks.loop(minutes=30)
+# Tarea que ejecuta el sonido cada 30 minutos
+@tasks.loop(minutes=3)
 async def random_sound_task():
     await play_sound_in_specific_voice_channel()
 
@@ -103,10 +107,10 @@ async def on_message(message):
     
     # Verifica si el mensaje contiene "bz" y si el mensaje es en el canal específico
     if "bz" in message.content.lower() and message.channel.id == 877810069239136268:
-    # Intenta unirse al canal de voz y reproducir el sonido
+        # Intenta unirse al canal de voz y reproducir el sonido
         await play_sound_in_specific_voice_channel()
 
-
+    # Verifica los mensajes de ELPIEDRA
     if message.author.id == 272731922717736971 and message.content.startswith("https://tenor.com/"):
         contador_mensajes += 1
         await message.channel.send(f"ELPIEDRA se tocó el pilín {contador_mensajes} veces! 💦🤤💦")

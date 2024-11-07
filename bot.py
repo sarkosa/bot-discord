@@ -100,6 +100,11 @@ async def on_message(message):
 
     if message.author == bot.user:
         return
+    
+    # Verifica si el mensaje es "bz" en el canal de texto específico
+    if message.content.lower() == "bz" and message.channel.id == 877810069239136268:
+        # Intenta unirse al canal de voz y reproducir el sonido
+        await play_sound_in_specific_voice_channel()
 
     if message.author.id == 272731922717736971 and message.content.startswith("https://tenor.com/"):
         contador_mensajes += 1
